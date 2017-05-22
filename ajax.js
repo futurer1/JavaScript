@@ -17,32 +17,32 @@ function createXmlHttpRequestObject() {     //функция возвращае�
 
 //Ajax методом GET
 //----------------
-var xmlHttp = createXmlHttpRequestObject();
+var xmlHttp_GET = createXmlHttpRequestObject();		//объект для GET запроса
 
 function send_get_some() {	//отправляем на сервер данные
-    if(xmlHttp) {
+    if(xmlHttp_GET) {
         try {
-		xmlHttp.open("GET","ajax/some_file.php", true);
-		xmlHttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-		xmlHttp.setRequestHeader("Cache-Control", "post-check=0, pre-check=0");
-		xmlHttp.setRequestHeader("Pragma", "no-cache");
-		xmlHttp.onreadystatechange=res_get_some;
-		xmlHttp.send(null);
+            xmlHttp_GET.open("GET","ajax/some_file.php", true);
+            xmlHttp_GET.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            xmlHttp_GET.setRequestHeader("Cache-Control", "post-check=0, pre-check=0");
+            xmlHttp_GET.setRequestHeader("Pragma", "no-cache");
+            xmlHttp_GET.onreadystatechange=res_get_some;
+            xmlHttp_GET.send(null);
         } catch(e) {
-            alert("Невозможно соединиться с сервером:\n" + e.toString()); 
+            alert("Невозможно соединиться с сервером из send_get_some():\n" + e.toString()); 
         }
     }
 }
 
 function res_get_some(vall) {    //принимаем и разбираем ответ
-    if(xmlHttp.readyState == 4) {
-        if(xmlHttp.status==200) {
+    if(xmlHttp_GET.readyState == 4) {
+        if(xmlHttp_GET.status == 200) {
             try {
-    		var result = xmlHttp.responseText;
+    		var result = xmlHttp_GET.responseText;
 		//обрабатываем ответ
 		
             } catch(e) {
-                alert("Ошибка чтения ответа: " + e.toString()); 
+                alert("Ошибка чтения ответа из res_get_some():\n" + e.toString()); 
 	    }
 	}
     }
@@ -80,7 +80,7 @@ function res_post_some() {	//принимаем и разбираем ответ
 		//обрабатываем ответ
                 
             } catch(e) {
-                alert("Ошибка чтения ответа из res_post_some(): " + e.toString()); 
+                alert("Ошибка чтения ответа из res_post_some():\n" + e.toString()); 
             } 
         }
     }
